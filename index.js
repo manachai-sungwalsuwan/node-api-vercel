@@ -1,20 +1,13 @@
 const express = require('express')
+const itemRouter = require('./app/routes/itemRoute');
+
 const app = express()
-const PORT = 4000
 
-app.get('/', (req, res) => {
-    res.status(200).json({
-        message: 'NODE API VERCEL'
-    })
-})
+app.use(express.json())
 
-app.get('/api/items', (req, res) => {
-    res.status(200).json([
-        { id: 1, name: 'item 1'},
-        { id: 2, name: 'item 2'},
-        { id: 3, name: 'item 3'},
-    ])
-})
+app.use('/api/v1/items', itemRouter)
+
+const PORT = process.env.PORT || 3000
 
 app.listen(PORT, () => {
     console.log(`server running on port ${PORT}`)
